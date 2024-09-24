@@ -1,23 +1,20 @@
-# Step 1: Build the application in a full Node.js environment
-FROM node:14 AS builder
+# Step 1: Build the application in a full Node.js 18 environment
+FROM node:18 AS builder
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the container
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application
 COPY . .
 
-# Build the application if necessary (optional, depending on your project structure)
-# RUN npm run build  # Uncomment if you have a build step
-
 # Step 2: Create a lightweight production image
-FROM node:14-alpine
+FROM node:18-alpine
 
 # Set environment to production
 ENV NODE_ENV=production
@@ -28,7 +25,7 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 # Set the working directory in the new image
 WORKDIR /usr/src/app
 
-# Copy the production build from the builder stage
+# Copy the production build from the builder stage (including node_modules)
 COPY --from=builder /usr/src/app .
 
 # Change ownership to the non-root user
