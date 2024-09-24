@@ -122,7 +122,12 @@ router.post('/testpost', asyncHandler(async (req, res) => {
   try {
     // Verify the token
     const decoded = jwt.verify(token, config.jwt.secret);
-    
+    let user = await User.findById(decoded.id);
+    console.log(decoded);
+    console.log(user);
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid token or user not found' });
+    }
     // Send the new token back to the frontend
     res.status(200).json(decoded);
 
