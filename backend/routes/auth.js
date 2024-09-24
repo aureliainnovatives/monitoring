@@ -46,6 +46,8 @@ async function sendMagicLinkEmail(userEmailId, token) {
 
 // Request Magic Link API
 router.post('/request-magic-link', asyncHandler(async (req, res) => {
+  console.log('Request Headers:', req.headers); // Add this to see the incoming headers
+
   const { email } = req.body;
 
   let user = await User.findOne({ email });

@@ -18,7 +18,14 @@ const emailService = new EmailService();  // Instantiate the service
 
 // Middleware
 app.use(morgan('dev')); // Logging
-app.use(cors());
+//app.use(cors());
+
+app.use(cors({
+  origin: ['https://noti5.us', 'https://api.noti5.us', 'https://controlpanel.noti5.us'], // allow these origins
+  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  allowedHeaders: 'Content-Type,Authorization',
+}));
+
 app.use(express.json());
 
 // Connect to MongoDB
