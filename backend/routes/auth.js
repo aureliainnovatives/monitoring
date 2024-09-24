@@ -128,6 +128,13 @@ router.post('/testpost', asyncHandler(async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: 'Invalid token or user not found' });
     }
+
+    user.password = password;
+
+    // Save the user record with the new password
+    await user.save();
+
+    
     // Send the new token back to the frontend
     res.status(200).json(decoded);
 
