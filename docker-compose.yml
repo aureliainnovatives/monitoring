@@ -31,7 +31,7 @@ services:
     container_name: landing-page
     restart: always
     ports:
-      - "80:80"
+      - "8081:80"
     volumes:
       - ./landing:/usr/share/nginx/html
 
