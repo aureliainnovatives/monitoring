@@ -14,7 +14,7 @@ async function sendMagicLinkEmail(userEmailId, token) {
   const apiKey = client.authentications["api-key"];
   //apiKey.apiKey = config.email.apiKey;
   apiKey.apiKey = process.env.BREVO_API_KEY;
-
+console.log("API: "+apiKey.apiKey);
   const tranEmailApi = new Sib.TransactionalEmailsApi();
   const sender = {
     email: config.email.senderEmail,
