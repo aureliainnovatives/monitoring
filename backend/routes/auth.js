@@ -140,7 +140,7 @@ router.post('/testpost', asyncHandler(async (req, res) => {
     res.status(200).json(decoded);
 
   } catch (error) {
-    console.error('Error setting up password:', error.message);
+    console.log('Error setting up password:', error.message);
     res.status(400).json({ message: 'Invalid or expired token' });
   }
 }));
