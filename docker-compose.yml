@@ -21,6 +21,7 @@ services:
       - "3000:3000"
     environment:
       - MONGO_URL=mongodb://root:10gicwaves@mongodb:27017/monitoring?authSource=admin
+      - BREVO_API_KEY=${BREVO_API_KEY}  # Add this line to pull the key from host OS env variable
     volumes:
       - ./backend:/usr/src/app
     depends_on:
