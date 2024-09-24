@@ -1,0 +1,34 @@
+{
+  "name": "aurelianotify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node  index.js",
+    "crawler": "node crawler.js",
+    "dev": "concurrently \"nodemon index.js\" \"nodemon crawler.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-async-handler": "^1.2.0",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "mongoose": "^8.6.2",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.15",
+    "sentiment": "^5.0.2",
+    "sib-api-v3-sdk": "^8.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
