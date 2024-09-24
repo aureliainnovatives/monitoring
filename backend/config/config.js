@@ -42,7 +42,7 @@ const config = {
       magicLinkFrequency: 5 * 60 * 1000,  // Allow 1 magic link request per 5 minutes
     },
     angular:{
-      baseUrl: "controlpanel.noti5.us"
+      baseUrl: "https://controlpanel.noti5.us"
     }
   };
   

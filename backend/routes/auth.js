@@ -142,7 +142,7 @@ console.log("User saved");
 
   } catch (error) {
     console.log('Error setting up password:', error.message);
-    res.status(400).json({ message: 'Invalid or expired token' });
+    res.status(200).json({ message: error.message });
   }
 }));
 
