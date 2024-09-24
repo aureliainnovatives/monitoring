@@ -131,10 +131,11 @@ router.post('/testpost', asyncHandler(async (req, res) => {
     }
 
     user.password = password;
+    console.log(user);
 
     // Save the user record with the new password
     await user.save();
-
+console.log("User saved");
 
     // Send the new token back to the frontend
     res.status(200).json(decoded);
