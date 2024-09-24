@@ -125,6 +125,7 @@ router.post('/testpost', asyncHandler(async (req, res) => {
     let user = await User.findById(decoded.id);
     console.log(decoded);
     console.log(user);
+    console.log(password);
     if (!user) {
       return res.status(400).json({ message: 'Invalid token or user not found' });
     }
@@ -134,7 +135,7 @@ router.post('/testpost', asyncHandler(async (req, res) => {
     // Save the user record with the new password
     await user.save();
 
-    
+
     // Send the new token back to the frontend
     res.status(200).json(decoded);
 
