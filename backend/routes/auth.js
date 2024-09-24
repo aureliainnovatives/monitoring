@@ -132,7 +132,7 @@ router.post('/testpost', asyncHandler(async (req, res) => {
 
     user.password = password;
     console.log(user);
-
+    user.createdAt = new Date();
     // Save the user record with the new password
     await user.save();
 console.log("User saved");
