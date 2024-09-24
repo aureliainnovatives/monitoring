@@ -130,9 +130,9 @@ router.post('/testpost', asyncHandler(async (req, res) => {
       return res.status(400).json({ message: 'Invalid token or user not found' });
     }
 
-    user.password = password;
+//    user.password = password;
     console.log(user);
-    user.createdAt = new Date();
+  //  user.createdAt = new Date();
     // Save the user record with the new password
     await user.save();
 console.log("User saved");
