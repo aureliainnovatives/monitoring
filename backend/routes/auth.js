@@ -23,26 +23,28 @@ async function sendMagicLinkEmail(userEmailId, token) {
   const receivers = [{ email: userEmailId }];
   const magicLink = `${config.email.baseUrl}/api/auth/magic-link-login?token=${token}`;
 
-  await tranEmailApi.sendTransacEmail({
-    sender,
-    to: receivers,
-    subject: "Login: Your Magic Link",
-    htmlContent: `
-      Hi,<br><br>
-
-      I’m Mayur Patil, the creator of Noti5, and I wanted to personally thank you for signing up. We’re excited to help you track the conversations that matter most to you.<br><br>
-
-      Please click the link below to verify your email and access your dashboard:<br><br>
-      <a href="${magicLink}">${magicLink}</a><br><br>
-
-      If you have any questions, feel free to reply to this email.<br><br>
-
-      Regards,<br>
-      Mayur Patil<br>
-      Noti5
-    `,
-  });
+  try {
+    await tranEmailApi.sendTransacEmail({
+      sender,
+      to: receivers,
+      subject: "Login: Your Magic Link",
+      htmlContent: `
+        Hi,<br><br>
+        I’m Mayur Patil, the creator of Noti5, and I wanted to personally thank you for signing up. We’re excited to help you track the conversations that matter most to you.<br><br>
+        Please click the link below to verify your email and access your dashboard:<br><br>
+        <a href="${magicLink}">${magicLink}</a><br><br>
+        If you have any questions, feel free to reply to this email.<br><br>
+        Regards,<br>
+        Mayur Patil<br>
+        Noti5
+      `,
+    });
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email via Sendinblue:', error);
+  }
 }
+
 
 // Request Magic Link API
 router.post('/request-magic-link', asyncHandler(async (req, res) => {
