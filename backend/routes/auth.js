@@ -55,6 +55,7 @@ router.post('/request-magic-link', asyncHandler(async (req, res) => {
     // Create new user if not exists
     user = new User({ email });
     await user.save();
+    console.log('User created:', user);
   }else
    {
     return res.status(400).json({ message: 'User already exists. Please login instead.' });
@@ -63,8 +64,9 @@ router.post('/request-magic-link', asyncHandler(async (req, res) => {
   const token = jwt.sign({ id: user._id }, config.jwt.secret, { expiresIn: config.jwt.magicLinkExpiresIn });
   user.verificationToken = token;
   await user.save();
+  console.log('Token:', token);
   await sendMagicLinkEmail(user.email, token);
-
+  console.log('Email sent');
   res.status(200).json({ message: 'Magic link sent to your email' });
 }));
 
