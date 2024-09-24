@@ -115,7 +115,7 @@ router.get('/magic-link-login', asyncHandler(async (req, res) => {
   }));
   
 
-router.get('/setup-password', asyncHandler(async (req, res) => {
+router.post('/testpost', asyncHandler(async (req, res) => {
 
 res.send("Setup Password");
 }));
