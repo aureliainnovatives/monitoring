@@ -117,7 +117,19 @@ router.get('/magic-link-login', asyncHandler(async (req, res) => {
 
 router.post('/testpost', asyncHandler(async (req, res) => {
 
-res.send("Setup Password");
+  const { token, password } = req.body;
+
+  try {
+    // Verify the token
+    const decoded = jwt.verify(token, config.jwt.secret);
+    
+    // Send the new token back to the frontend
+    res.status(200).json(decoded);
+
+  } catch (error) {
+    console.error('Error setting up password:', error.message);
+    res.status(400).json({ message: 'Invalid or expired token' });
+  }
 }));
 
 // Password setup route (for first-time password creation)
