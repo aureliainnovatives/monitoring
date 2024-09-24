@@ -166,31 +166,7 @@ router.post('/setup-password', asyncHandler(async (req, res) => {
   res.status(200).json({ token });
 }));
 
-
-// Temporary route to update password
-router.get('/update-password', asyncHandler(async (req, res) => {
-  try {
-    // Find the user with the specific email
-    const user = await User.findOne({ email: 'mayur.patil@aurelia.tech' });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // The new password you want to set
-    const newPassword = 'newPassword123';  // Change this to whatever you like
-
-   
-    // Update the user's password
-    user.password = newPassword; // hashedPassword;
-    await user.save();
-
-    res.status(200).json({ message: 'Password updated successfully' });
-  } catch (error) {
-    console.error('Error updating password:', error.message);
-    res.status(500).json({ message: 'Server error' });
-  }
-}));
+ 
 
 
 module.exports = router;

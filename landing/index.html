@@ -238,7 +238,7 @@
       <h2>Noti5</h2>
     </div>
     <div class="links">
-      <a href="/login">Login</a>
+      <a href="https://controlpanel.noti5.us/">Login</a>
     </div>
   </div>
 
@@ -296,7 +296,7 @@ function handleFormSubmission() {
     return;
   }
 
-  fetch('http://localhost:3000/api/auth/request-magic-link', {
+  fetch('https://api.noti5.us/api/auth/request-magic-link', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

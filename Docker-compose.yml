@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 10gicwaves
+    volumes:
+      - ./mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  api:
+    build: ./backend
+    container_name: nodejs_api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb://root:10gicwaves@mongodb:27017/monitoring?authSource=admin
+    volumes:
+      - ./backend:/usr/src/app
+    depends_on:
+      - mongodb
+
+  landing:
+    image: nginx:alpine
+    container_name: landing-page
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./landing:/usr/share/nginx/html
+
+  controlpanel:
+    image: nginx:alpine
+    container_name: control-panel
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./control-panel:/usr/share/nginx/html

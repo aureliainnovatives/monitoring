@@ -8,7 +8,7 @@ const EmailService = require('./services/emailService');  // Import the refactor
 const emailService = new EmailService();  // Instantiate the service
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/monitoring', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
