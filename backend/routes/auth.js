@@ -114,6 +114,12 @@ router.get('/magic-link-login', asyncHandler(async (req, res) => {
     }
   }));
   
+
+router.get('/setup-password', asyncHandler(async (req, res) => {
+
+res.send("Setup Password");
+}));
+
 // Password setup route (for first-time password creation)
 router.post('/setup-password', asyncHandler(async (req, res) => {
   const { token, password } = req.body;
