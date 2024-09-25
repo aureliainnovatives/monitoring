@@ -41,7 +41,7 @@ UserSchema.pre('save', async function (next) {
         return next();
     }
     console.log(`Password is modified`);
-    console.log(bcrypt.genSaltSync(10));
+    console.log(bcrypt);
     const salt = await bcrypt.genSalt(10);
     console.log(`Salt: ${salt}`);
     this.password = await bcrypt.hash(this.password, salt);
