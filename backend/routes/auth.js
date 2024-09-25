@@ -105,7 +105,7 @@ router.get('/magic-link-login', asyncHandler(async (req, res) => {
   
       const angularDashboardUrl = `${config.angular.baseUrl}/magic-link?token=${authToken}`;
       res.redirect(angularDashboardUrl);
-
+      // here we fixed the error
       // Redirect to the Angular dashboard or send the token in the response
       //res.status(200).json({ token: authToken, message: 'Login successful' });
     } catch (error) {
