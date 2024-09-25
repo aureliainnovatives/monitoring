@@ -37,6 +37,7 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre('save', async function (next) {
     console.log(`Updating password${this.password}`);
     if (!this.isModified('password')) {
+        console.log(`Password is not modified`);
         return next();
     }
     const salt = await bcrypt.genSalt(10);
