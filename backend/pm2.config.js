@@ -7,7 +7,10 @@ module.exports = {
         error_file: "./logs/api-error.log",
         log_date_format: "YYYY-MM-DD HH:mm:ss",
         instances: 1,
-        autorestart: true
+        autorestart: true,
+        env: {
+          BREVO_API_KEY: process.env.BREVO_API_KEY
+        }
       },
       {
         name: "crawler",
@@ -16,7 +19,10 @@ module.exports = {
         error_file: "./logs/crawler-error.log",
         log_date_format: "YYYY-MM-DD HH:mm:ss",
         instances: 1,
-        autorestart: true
+        autorestart: true,
+        env: {
+          BREVO_API_KEY: process.env.BREVO_API_KEY
+        }
       }
     ]
   };
