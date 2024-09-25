@@ -57,6 +57,9 @@ class BaseService {
                   'User-Agent': 'noti5/1.0 (https://noti5.us)'  // Use a valid User-Agent
                 }
               });
+              console.log("URL: ",url);
+              console.log("Response Count: ",response.data.length);
+              console.log("Response: ",response.data);
               return response.data;
 
         } catch (error) {
