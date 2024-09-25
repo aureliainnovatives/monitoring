@@ -24,6 +24,7 @@ services:
       - BREVO_API_KEY=${BREVO_API_KEY}  # Add this line to pull the key from host OS env variable
     volumes:
       - ./backend:/usr/src/app
+      - ./logs:/logs  # This maps the container's /logs to your host's ./logs directory
     depends_on:
       - mongodb
 
