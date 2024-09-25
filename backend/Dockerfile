@@ -38,6 +38,9 @@ RUN mkdir -p /usr/src/app/logs
 # Change ownership to the non-root user
 RUN chown -R appuser:appgroup /usr/src/app /usr/src/app/logs
 
+RUN chmod -R 755 /usr/src/app/logs
+
+
 # Switch to the non-root user
 USER appuser
 
