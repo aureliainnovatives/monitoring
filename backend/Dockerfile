@@ -46,5 +46,5 @@ USER appuser
 # Expose the port your app runs on
 EXPOSE 3000
 
-# Use PM2 to run both index.js and crawler.js and ensure logs are captured
-CMD ["pm2-runtime", "start", "index.js", "--name", "api", "--output", "/usr/src/app/logs/api.log", "--error", "/usr/src/app/logs/api-error.log", "--log-date-format", "YYYY-MM-DD HH:mm:ss", "--", "crawler.js", "--name", "crawler", "--output", "/usr/src/app/logs/crawler.log", "--error", "/usr/src/app/logs/crawler-error.log", "--log-date-format", "YYYY-MM-DD HH:mm:ss"]
+# Use PM2 to run both index.js and crawler.js
+CMD ["pm2-runtime", "start", "pm2.config.js"]

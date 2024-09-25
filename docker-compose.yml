@@ -21,10 +21,10 @@ services:
       - "3000:3000"
     environment:
       - MONGO_URL=mongodb://root:10gicwaves@mongodb:27017/monitoring?authSource=admin
-      - BREVO_API_KEY=${BREVO_API_KEY}  # Add this line to pull the key from host OS env variable
+      - BREVO_API_KEY=${BREVO_API_KEY}
     volumes:
       - ./backend:/usr/src/app
-      - ./logs:/usr/src/app/logs  # Maps logs directory to host
+      - ./logs:/usr/src/app/logs
     depends_on:
       - mongodb
 
@@ -47,16 +47,16 @@ services:
       - ./control-panel:/usr/share/nginx/html
 
   mongo-express:
-      image: mongo-express
-      container_name: mongo-express
-      restart: always
-      depends_on:
-        - mongodb
-      environment:
-        ME_CONFIG_MONGODB_ADMINUSERNAME: root
-        ME_CONFIG_MONGODB_ADMINPASSWORD: 10gicwaves
-        ME_CONFIG_MONGODB_SERVER: mongodb
-        ME_CONFIG_BASICAUTH_USERNAME: root                # Mongo Express login username
-        ME_CONFIG_BASICAUTH_PASSWORD: 10gicwaves 
-      ports:
-        - "8082:8081"
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    depends_on:
+      - mongodb
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 10gicwaves
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_BASICAUTH_USERNAME: root
+      ME_CONFIG_BASICAUTH_PASSWORD: 10gicwaves 
+    ports:
+      - "8082:8081"
