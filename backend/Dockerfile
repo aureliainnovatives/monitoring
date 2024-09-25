@@ -38,4 +38,6 @@ USER appuser
 EXPOSE 3000
 
 # Start the application
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
+CMD ["forever", "start", "-l", "/logs/api.log", "index.js", "--append"]
+CMD ["forever", "start", "-l", "/logs/crawler.log", "crawler.js", "--append"]
