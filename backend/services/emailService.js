@@ -10,7 +10,9 @@ class EmailService {
   constructor() {
     const client = SibApiV3Sdk.ApiClient.instance;
     const apiKey = client.authentications['api-key'];
-    apiKey.apiKey = config.email.apiKey;
+//    apiKey.apiKey = config.email.apiKey;
+    apiKey.apiKey = process.env.BREVO_API_KEY;
+
     this.emailApi = new SibApiV3Sdk.TransactionalEmailsApi();
   }
 
