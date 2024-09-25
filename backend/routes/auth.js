@@ -6,7 +6,7 @@ const router = express.Router();
 const asyncHandler = require('express-async-handler');
 const Sib = require("sib-api-v3-sdk");
 const config = require('../config/config');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // Send magic link function
 async function sendMagicLinkEmail(userEmailId, token) {
