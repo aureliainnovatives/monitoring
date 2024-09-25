@@ -48,8 +48,17 @@ class BaseService {
     // Base API call helper (can be reused by child classes)
     async fetchData(url) {
         try {
-            const response = await axios.get(url);
-            return response.data;
+          //  const response = await axios.get(url);
+          //  return response.data;
+
+
+            const response = await axios.get(url, {
+                headers: {
+                  'User-Agent': 'noti5/1.0 (https://noti5.us)'  // Use a valid User-Agent
+                }
+              });
+              return response.data;
+
         } catch (error) {
             console.error(`Error fetching data from ${url}:`, error.message);
         }
