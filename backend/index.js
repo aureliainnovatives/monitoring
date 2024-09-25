@@ -14,6 +14,7 @@ const app = express();
 
 const EmailService = require('./services/emailService');  // Import the refactored EmailService
 const emailService = new EmailService();  // Instantiate the service
+const keywordAssignmentService = require('./services/KeywordAssignmentService');
 
 
 // Middleware
@@ -52,6 +53,16 @@ app.get('/send', (req, res) => {
   .catch(err => console.error('Error during manual execution:', err));
 
   res.send('Notification Sent');
+});
+
+app.get('/assign', async(req, res) => {
+ // Assign keywords to stories and comments in parallel
+  await Promise.all([
+    keywordAssignmentService.assignKeywordsToStories(),
+    keywordAssignmentService.assignKeywordsToComments()
+  ]);
+
+  res.send('Assignment started');
 });
 
 // Define a simple route
