@@ -41,5 +41,6 @@ EXPOSE 3000
 
 # Start the application
 # CMD ["npm", "start"]
-CMD ["forever", "start", "-l", "/logs/api.log", "index.js", "--append"]
-CMD ["forever", "start", "-l", "/logs/crawler.log", "crawler.js", "--append"]
+#CMD ["forever", "start", "-l", "/logs/api.log", "index.js", "--append"]
+#CMD ["forever", "start", "-l", "/logs/crawler.log", "crawler.js", "--append"]
+CMD ["sh", "-c", "forever start -l /usr/src/app/logs/api.log -a index.js && forever start -l /usr/src/app/logs/crawler.log -a crawler.js"]
