@@ -56,7 +56,7 @@ class BaseService {
                 headers: {
                     'User-Agent': 'noti5/1.0 (https://noti5.us)',  // Set a valid User-Agent
                     'Accept': 'application/json',
-                    'Referer': 'https://www.reddit.com'                }
+                                  }
               });
               console.log("URL: ",url);
               console.log("Response Count: ",response.data.length);

@@ -24,7 +24,7 @@ services:
       - BREVO_API_KEY=${BREVO_API_KEY}
     volumes:
       - ./backend:/usr/src/app
-      - ./logs:/usr/src/app/logs
+    #  - ./logs:/usr/src/app/logs
     depends_on:
       - mongodb
 
