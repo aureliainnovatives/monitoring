@@ -48,6 +48,6 @@ USER appuser
 EXPOSE 3000
 
 # Use forever to run both scripts and append logs to separate files
-#CMD ["sh", "-c", "forever start -l /usr/src/app/logs/api.log -a index.js && forever start -l /usr/src/app/logs/crawler.log -a crawler.js"]
+CMD ["sh", "-c", "forever start -l /usr/src/app/logs/api.log -a index.js && forever start -l /usr/src/app/logs/crawler.log -a crawler.js"]
 
-CMD ["node", "index.js"]
+#CMD ["node", "index.js"]
