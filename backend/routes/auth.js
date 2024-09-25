@@ -114,37 +114,7 @@ router.get('/magic-link-login', asyncHandler(async (req, res) => {
     }
   }));
   
-
-router.post('/testpost', asyncHandler(async (req, res) => {
-
-  const { token, password } = req.body;
-
-  try {
-    // Verify the token
-    const decoded = jwt.verify(token, config.jwt.secret);
-    let user = await User.findById(decoded.id);
-    console.log(decoded);
-    console.log(user);
-    console.log(password);
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid token or user not found' });
-    }
-
-    user.password = password;
-    console.log(user);
-  //  user.createdAt = new Date();
-    // Save the user record with the new password
-    await user.save();
-console.log("User saved");
-
-    // Send the new token back to the frontend
-    res.status(200).json(decoded);
-
-  } catch (error) {
-    console.log('Error setting up password:', error.message);
-    res.status(200).json({ message: error.message });
-  }
-}));
+ 
 
 // Password setup route (for first-time password creation)
 router.post('/setup-password', asyncHandler(async (req, res) => {
