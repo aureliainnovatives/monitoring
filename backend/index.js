@@ -65,6 +65,13 @@ app.get('/assign', async(req, res) => {
   res.send('Assignment started');
 });
 
+const BaseService = require('./services/baseService');
+app.get('/reddittest', async(req, res) => {
+  const baseService = new BaseService();
+  const response = await baseService.fetchData('https://www.reddit.com/search.json?q=blockchain&limit=25&restrict_sr=off&sort=new&type=link');
+  res.send(response);
+});
+
 // Define a simple route
 app.get('/', (req, res) => {
   res.send('Backend Server is Running');

@@ -59,7 +59,7 @@ class BaseService {
               });
               console.log("URL: ",url);
               console.log("Response Count: ",response.data.length);
-              console.log("Response: ",response.data);
+              console.log("Response: ",response.data.hits);
               return response.data;
 
         } catch (error) {
