@@ -6,6 +6,7 @@ const config = require('./config/config');
 const keywordAssignmentService = require('./services/KeywordAssignmentService');
 const EmailService = require('./services/emailService');  // Import the refactored EmailService
 const emailService = new EmailService();  // Instantiate the service
+require('dotenv').config();
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
