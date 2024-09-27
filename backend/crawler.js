@@ -2,14 +2,13 @@ const cron = require('node-cron');
 const mongoose = require('mongoose');
 const Keyword = require('./models/Keyword');
 const Source = require('./models/Source');  // Import the updated Source model
-const config = require('./config/config');
+const config = require('./config/configLoader');
 const keywordAssignmentService = require('./services/KeywordAssignmentService');
 const EmailService = require('./services/emailService');  // Import the refactored EmailService
 const emailService = new EmailService();  // Instantiate the service
-require('dotenv').config();
-
+ 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(config.system.db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

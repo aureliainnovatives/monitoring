@@ -1,3 +1,4 @@
+require('dotenv').config();
 // routes/auth.js
 const express = require('express');
 const jwt = require('jsonwebtoken');
@@ -5,8 +6,9 @@ const User = require('../models/User');
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 const Sib = require("sib-api-v3-sdk");
-const config = require('../config/config');
+const config = require('../config/configLoader');
 const bcrypt = require('bcryptjs');
+
 
 // Send magic link function
 async function sendMagicLinkEmail(userEmailId, token) {
@@ -14,7 +16,7 @@ async function sendMagicLinkEmail(userEmailId, token) {
   const apiKey = client.authentications["api-key"];
   //apiKey.apiKey = config.email.apiKey;
   apiKey.apiKey = process.env.BREVO_API_KEY;
-console.log("API: "+apiKey.apiKey);
+  console.log("BRAVO API KEY: ", apiKey.apiKey);
   const tranEmailApi = new Sib.TransactionalEmailsApi();
   const sender = {
     email: config.email.senderEmail,
@@ -22,7 +24,7 @@ console.log("API: "+apiKey.apiKey);
   };
 
   const receivers = [{ email: userEmailId }];
-  const magicLink = `${config.email.baseUrl}/api/auth/magic-link-login?token=${token}`;
+  const magicLink = `${config.common.apiUrl}/api/auth/magic-link-login?token=${token}`;
 
   try {
     await tranEmailApi.sendTransacEmail({
@@ -96,14 +98,14 @@ router.get('/magic-link-login', asyncHandler(async (req, res) => {
        // Check if the user has set a password
        if (!user.password) {
         // Redirect to password setup if no password is set
-        const passwordSetupUrl = `${config.angular.baseUrl}/password-setup?token=${token}`;
+        const passwordSetupUrl = `${config.common.controlPanelUrl}/password-setup?token=${token}`;
         return res.redirect(passwordSetupUrl);
       }
 
       // Generate a new JWT for authenticated session
       const authToken = jwt.sign({ id: user._id }, config.jwt.secret, { expiresIn: '1h' });
   
-      const angularDashboardUrl = `${config.angular.baseUrl}/magic-link?token=${authToken}`;
+      const angularDashboardUrl = `${config.common.controlPanelUrl}/magic-link?token=${authToken}`;
       res.redirect(angularDashboardUrl);
       // here we fixed the error
       // Redirect to the Angular dashboard or send the token in the response
@@ -153,17 +155,14 @@ router.post('/setup-password', asyncHandler(async (req, res) => {
 
   // Find the user by email
   const user = await User.findOne({ email });
-  console.log('User found:', user);
-
+ 
   if (!user || !user.isVerified) {
     return res.status(400).json({ message: 'Invalid credentials or unverified account' });
   }
 
   // Compare the entered password with the hashed password stored in the database
   const isMatch = await bcrypt.compare(password, user.password);  // Dynamically compare entered password
-  console.log('Password match status:', isMatch);
-  console.log('Entered password:', password);
-  console.log('Hashed password in DB:', user.password);
+ 
 
   if (!isMatch) {
     return res.status(400).json({ message: 'Invalid credentials' });

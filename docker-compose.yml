@@ -35,7 +35,7 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - ./landing:/usr/share/nginx/html
+      - ./landing/dist:/usr/share/nginx/html
 
   controlpanel:
     image: nginx:alpine

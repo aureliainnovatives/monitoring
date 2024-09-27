@@ -1,6 +1,6 @@
 // services/emailService.js
 const SibApiV3Sdk = require('sib-api-v3-sdk');
-const config = require('../config/config');
+const config = require('../config/configLoader');
 const User = require('../models/User');
 const Story = require('../models/Stories');
 const Comment = require('../models/Comment');
@@ -10,7 +10,6 @@ class EmailService {
   constructor() {
     const client = SibApiV3Sdk.ApiClient.instance;
     const apiKey = client.authentications['api-key'];
-//    apiKey.apiKey = config.email.apiKey;
     apiKey.apiKey = process.env.BREVO_API_KEY;
 
     this.emailApi = new SibApiV3Sdk.TransactionalEmailsApi();
@@ -140,7 +139,7 @@ class EmailService {
         });
   
         // Send the email using the sendEmail function
-        await this.sendEmail(user.email, 'Your Keyword Notifications', emailContent);
+        await this.sendEmail(user.email, 'noti5.us - Your Notifications', emailContent);
         console.log(`Notification email sent to: ${user.email}`);
   
         // Update user's lastNotifiedAt to the current time

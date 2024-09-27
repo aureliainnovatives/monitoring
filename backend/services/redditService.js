@@ -1,11 +1,11 @@
 const BaseService = require('./baseService');
-const config = require('../config/config');
+const config = require('../config/configLoader');
 const Keyword = require('../models/Keyword');
 
 class RedditService extends BaseService {
     constructor(sourceId, keywords) {
         super(sourceId, 1500);  // 1.5 second rate limit delay
-        this.baseUrl = 'https://www.reddit.com/search.json';  // Reddit search endpoint for keyword-based search
+        this.baseUrl = config.reddit.baseUrl;  // Reddit search endpoint for keyword-based search
         this.keywords = keywords;  // List of keywords to monitor
     }
 

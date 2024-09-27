@@ -238,7 +238,7 @@
       <h2>Noti5</h2>
     </div>
     <div class="links">
-      <a href="{{CONTROL_PANEL_URL}}">Login</a>
+      <a href="http://localhost:4200">Login</a>
     </div>
   </div>
 
@@ -247,9 +247,9 @@
       <h1>Track Conversations that Matter to You</h1>
       <p>
         Get daily updates when your keywords appear on 
-        <a href="{{HACKER_NEWS_URL}}" target="_blank" style="text-decoration: underline; color: black;">Hacker News</a> 
+        <a href="https://news.ycombinator.com/" target="_blank" style="text-decoration: underline; color: black;">Hacker News</a> 
         and 
-        <a href="{{REDDIT_URL}}" target="_blank" style="text-decoration: underline; color: black;">Reddit</a>.
+        <a href="https://www.reddit.com/" target="_blank" style="text-decoration: underline; color: black;">Reddit</a>.
       </p>
       
       <div class="input-container" id="inputContainer">
@@ -296,7 +296,7 @@ function handleFormSubmission() {
     return;
   }
 
-  fetch('{{API_URL}}/api/auth/request-magic-link', {
+  fetch('http://localhost:3000/api/auth/request-magic-link', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

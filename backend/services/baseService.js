@@ -2,6 +2,7 @@ const axios = require('axios');
 const Story = require('../models/Stories');
 const Comment = require('../models/Comment');
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const config = require('../config/configLoader');
 
 class BaseService {
     constructor(sourceId, rateLimitDelay = 1000) {
@@ -54,7 +55,7 @@ class BaseService {
 
             const response = await axios.get(url, {
                 headers: {
-                    'User-Agent': 'noti5/1.0 (https://noti5.us)',  // Set a valid User-Agent
+                    'User-Agent': 'noti5/1.0 ('+config.common.baseUrl+')',  // Set a valid User-Agent
                     'Accept': 'application/json',
                                   }
               });

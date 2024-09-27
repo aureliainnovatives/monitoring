@@ -6,7 +6,7 @@ const config = {
       maxRecheckDuration: 240,         // Maximum time (in hours) to keep rechecking comments
       rateLimitDelay: 60000,          // Delay in milliseconds after every 10 requests to respect rate limits (60 seconds)
       allowedPostAge: 72, // new variable to control allowed post age in hours
-
+      baseUrl: "https://hn.algolia.com/api/v1",
     },
     reddit: {
       // Add configurations for Reddit or other services here
@@ -21,6 +21,7 @@ const config = {
       maxDepth: 10,
       delayForKeyword: 12 * 60 * 60 * 1000, // 12 hours
       keywordsPerBatch: 10,
+      baseUrl: "https://www.reddit.com/search.json",
       
     },
     assignmentService: {
@@ -31,7 +32,7 @@ const config = {
         apiKey: "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",  // Replace with your SendInBlue API key
         senderEmail: "mayur.patil@aurelia.tech",
         senderName: "Account Verification",
-        baseUrl: "https://api.noti5.us", // Adjust your base URL as needed
+        
     },
     jwt: {
         secret: "myrandomsecretkey_abrakadabraght345#$%",  // Replace with your JWT secret key
@@ -41,8 +42,17 @@ const config = {
       magicLinkTokenExpiration: 60 * 60, // Token valid for 1 hour (3600 seconds)
       magicLinkFrequency: 5 * 60 * 1000,  // Allow 1 magic link request per 5 minutes
     },
-    angular:{
-      baseUrl: "https://controlpanel.noti5.us"
+    
+    common:{
+      baseUrl: "https://noti5.us",
+      apiUrl: "https://api.noti5.us",
+      controlPanelUrl: "https://controlpanel.noti5.us",
+      landingPageUrl: "https://noti5.us",
+
+    },
+    system:{
+      db: "mongodb://root:10gicwaves@localhost:27017/monitoring?authSource=admin",
+      port:3000
     }
   };
   

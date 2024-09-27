@@ -1,13 +1,13 @@
 const BaseService = require('./baseService');
 const Source = require('../models/Source');
 const moment = require('moment');
-const config = require('../config/config');
+const config = require('../config/configLoader');
 const Story = require('../models/Stories');
 
 class HackerNewsService extends BaseService {
     constructor(sourceId, keywords) {
         super(sourceId, 1000);  // 1 second rate limit delay
-        this.baseUrl = 'https://hn.algolia.com/api/v1';
+        this.baseUrl = config.hackerNews.baseUrl;
         this.postsToRecheck = [];  // Store posts to recheck for comments
     }
 

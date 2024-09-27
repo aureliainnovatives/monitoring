@@ -2,8 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
-require('dotenv').config();
-
+ const config = require('./config/configLoader');
 // Import Routes
 const keywordsRoute = require('./routes/keywords');
 //const mentionsRoute = require('./routes/mentions');
@@ -17,12 +16,15 @@ const emailService = new EmailService();  // Instantiate the service
 const keywordAssignmentService = require('./services/KeywordAssignmentService');
 
 
+require('dotenv').config();
+
+
 // Middleware
 app.use(morgan('dev')); // Logging
 //app.use(cors());
 
 app.use(cors({
-  origin: ['https://noti5.us', 'https://api.noti5.us', 'https://controlpanel.noti5.us'], // allow these origins
+  origin: ['https://noti5.us', 'https://api.noti5.us', 'https://controlpanel.noti5.us', 'http://localhost:8080', 'http://localhost:3000', 'http://localhost:4200'], // allow these origins
   methods: 'GET,POST,PUT,DELETE,OPTIONS',
   allowedHeaders: 'Content-Type,Authorization',
 }));
@@ -32,7 +34,7 @@ app.use(cors({
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(config.system.db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   // useFindAndModify: false, // Removed as it's no longer supported
@@ -78,7 +80,7 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000; // Ensure you're using port 3000 as per your setup
+const PORT = config.system.port || 3000; // Ensure you're using port 3000 as per your setup
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

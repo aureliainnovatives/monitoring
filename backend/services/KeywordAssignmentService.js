@@ -1,4 +1,4 @@
-const config = require('../config/config');
+const config = require('../config/configLoader');
 const Keyword = require('../models/Keyword');
 const Story = require('../models/Stories');
 const Comment = require('../models/Comment');

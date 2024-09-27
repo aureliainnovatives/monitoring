@@ -1,0 +1,7 @@
+{
+  "scripts": {
+     "build:landing:dev": "NODE_ENV=development node build.js",
+    "build:landing:prod": " NODE_ENV=production node build.js",
+    "serve:landing": "cd ./dist && npx http-server"
+  }
+}
