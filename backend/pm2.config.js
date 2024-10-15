@@ -3,12 +3,14 @@ module.exports = {
       {
         name: "api",
         script: "index.js",
+        watch: true, 
         log_file: "./logs/api.log",
         error_file: "./logs/api-error.log",
         log_date_format: "YYYY-MM-DD HH:mm:ss",
         instances: 1,
         autorestart: true,
         env: {
+          MODE: 'production',
           BREVO_API_KEY: process.env.BREVO_API_KEY
         }
       },
@@ -21,8 +23,14 @@ module.exports = {
         instances: 1,
         autorestart: true,
         env: {
+          MODE: 'production',
           BREVO_API_KEY: process.env.BREVO_API_KEY
         }
+      },
+      {
+        name: 'sentence-transformer',
+        script: 'python3',  // Python binary
+        args: './sentence_transformer_service.py',  // Path to your Python file
       }
     ]
   };
