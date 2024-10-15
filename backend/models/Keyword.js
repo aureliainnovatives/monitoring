@@ -14,7 +14,7 @@ const KeywordSchema = new mongoose.Schema({
   }],
   expressionType: {
     type: String,
-    enum: ['exact', 'contains', 'regex'],
+    enum: ['keyword', 'ai'],
     default: 'contains',
   },
   

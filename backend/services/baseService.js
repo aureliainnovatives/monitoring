@@ -1,20 +1,44 @@
+ 
+const readline = require('readline');  // Add this line
 const axios = require('axios');
 const Story = require('../models/Stories');
 const Comment = require('../models/Comment');
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const config = require('../config/configLoader');
-
+ 
 class BaseService {
     constructor(sourceId, rateLimitDelay = 1000) {
         this.sourceId = sourceId;
-        this.rateLimitDelay = rateLimitDelay;  // Default delay between API requests
+        this.rateLimitDelay = rateLimitDelay;  
+
+    }
+
+ // Function to call the Python service to generate embeddings
+    async generateEmbedding(sentence) {
+        try {
+            console.log("**** Calling Python Service at :",config.common.sentenceTransformerUrl);
+            // Update the URL to use port 4000
+            const response = await axios.post(config.common.sentenceTransformerUrl, {
+                sentence: sentence
+            });
+            return response.data.embedding;
+        } catch (error) {
+            console.error('Error generating embedding:', error.message);
+            return null;
+        }
     }
 
     async storePost(postData, storyId, sourceId) {
         try {
             const existingStory = await Story.findOne({ storyId });
             if (!existingStory) {
-                
+             
+                const postWithPrompt = `This post is about: ${postData.title}. ${postData.content}`;
+                 const postVector = await this.generateEmbedding(postWithPrompt);
+ 
+                 // Add embedding to post data
+                 postData.vector = postVector;
+ 
                 const newStory = new Story(postData);
              
                 await newStory.save();
@@ -26,6 +50,9 @@ class BaseService {
             console.error('Error storing post:', error.message);
         }
     }
+
+  
+
 
     async storeComment(commentPayload) {
         try {
@@ -68,6 +95,7 @@ class BaseService {
             console.error(`Error fetching data from ${url}:`, error.message);
         }
     }
+ 
 }
 
 module.exports = BaseService;

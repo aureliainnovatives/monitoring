@@ -2,6 +2,7 @@ const config = require('../config/configLoader');
 const Keyword = require('../models/Keyword');
 const Story = require('../models/Stories');
 const Comment = require('../models/Comment');
+const BaseService = require('./baseService');  // Assuming vector-related methods are available here
 
 class KeywordAssignmentService {
     constructor() {
@@ -15,9 +16,28 @@ class KeywordAssignmentService {
 
         for (let story of unassignedStories) {
             let matchedKeywords = [];
+            console.log(`Post vector length for story "${story.title}": ${story.vector.length}`);
+
             for (let keyword of keywords) {
-                if (this.matchKeyword(keyword, story.title, story.content)) {
-                    matchedKeywords.push(keyword.keyword);  // Store the keyword string
+                if (keyword.expressionType === 'keyword') {
+                    // Traditional exact keyword matching
+                    if (this.matchKeyword(keyword, story.title, story.content)) {
+                        matchedKeywords.push({
+                            keyword: keyword.keyword,
+                            score: 1  // Store the relevance score
+                        });
+                    }
+                } else if (keyword.expressionType === 'ai') {
+                    // AI relevance matching
+//                    const isRelevant = await this.matchAIKeyword(keyword, story.vector, story.title);
+                    const relevanceResult = await this.matchAIKeyword(keyword, story.vector, story.title);
+
+                    if (relevanceResult.isRelevant) {
+                        matchedKeywords.push({
+                            keyword: keyword.keyword,
+                            score: relevanceResult.score  // Store the relevance score
+                        });
+                    }
                 }
             }
 
@@ -36,9 +56,29 @@ class KeywordAssignmentService {
 
         for (let comment of unassignedComments) {
             let matchedKeywords = [];
+
             for (let keyword of keywords) {
-                if (this.matchKeyword(keyword, comment.content)) {
-                    matchedKeywords.push(keyword.keyword);  // Store the keyword string
+                if (keyword.expressionType === 'keyword') {
+                    // Traditional exact keyword matching
+                    if (this.matchKeyword(keyword, comment.content)) {
+                        matchedKeywords.push({
+                            keyword: keyword.keyword,
+                            score: 1  // Store the relevance score
+                        });
+                    }
+                } else if (keyword.expressionType === 'ai') {
+                  
+
+                    const relevanceResult = await this.matchAIKeyword(keyword, comment.vector, story.title);
+
+                    if (relevanceResult.isRelevant) {
+                        matchedKeywords.push({
+                            keyword: keyword.keyword,
+                            score: relevanceResult.score  // Store the relevance score
+                        });
+                    }
+
+
                 }
             }
 
@@ -50,27 +90,46 @@ class KeywordAssignmentService {
         }
     }
 
-       // Helper method to match keywords (for exact, contains, and regex)
-        matchKeyword(keyword, title = '', content = '') {
-            if (keyword.expressionType === 'exact') {
-                // Exact match: Both title and content must contain the full keyword phrase
-                const exactMatch = new RegExp(`\\b${keyword.keyword}\\b`, 'i');  // Ensures exact phrase match with word boundaries
-                return exactMatch.test(title) || exactMatch.test(content);
+    // Helper method to match traditional exact keywords
+    matchKeyword(keyword, title = '', content = '') {
+        const exactMatch = new RegExp(`\\b${keyword.keyword}\\b`, 'i');
+        return exactMatch.test(title) || exactMatch.test(content);
+    }
 
-            } else if (keyword.expressionType === 'contains') {
-                // Contains match: At least one part of the phrase should appear
-                const containsMatch = new RegExp(`${keyword.keyword.split(' ').join('|')}`, 'i');  // Matches any word from the keyword phrase
-                return containsMatch.test(title) || containsMatch.test(content);
-
-            } else if (keyword.expressionType === 'regex') {
-                // Regex match: Use the provided regex pattern
-                const regex = new RegExp(keyword.keyword);
-                return regex.test(title) || regex.test(content);
-            }
-
-            return false;
+    // Helper method to match AI-relevant keywords using vector similarity
+    async matchAIKeyword(keyword, postVector, title) {
+        // Generate embedding for the keyword using the Python service
+        const keywordWithPrompt = `User is interested in topic: ${keyword.keyword}`;
+        const keywordVector = await BaseService.prototype.generateEmbedding(keywordWithPrompt);
+        if (!keywordVector) {
+            console.error(`Failed to generate embedding for keyword: ${keyword.keyword}`);
+            return { isRelevant: false, score: 0 }; // Return object with both relevance and score
         }
+        console.log(`Keyword vector length for keyword "${keyword.keyword}": ${keywordVector.length}`);
 
+        // Compute cosine similarity between the keyword and post vectors
+        const similarity = this.computeCosineSimilarity(keywordVector, postVector);
+        console.log("**** Post : ", title);
+        console.log("**** Score :",similarity);
+        console.log("**** Keyword :",keyword.keyword);
+        console.log("**** isRelevant :",(similarity >= 0.3));
+        console.log("********** END ********** \n\n\n\n /n/n/n");
+
+        // Set a threshold for relevance (e.g., 0.7)
+        const isRelevant = similarity > 0.3;
+        return { isRelevant, score: similarity };
+
+    }
+
+    // Helper method to compute cosine similarity between two vectors
+    computeCosineSimilarity(vectorA, vectorB) {
+        const dotProduct = vectorA.reduce((sum, a, i) => sum + a * vectorB[i], 0);
+        const magnitudeA = Math.sqrt(vectorA.reduce((sum, a) => sum + a * a, 0));
+        const magnitudeB = Math.sqrt(vectorB.reduce((sum, b) => sum + b * b, 0));
+
+        if (magnitudeA === 0 || magnitudeB === 0) return 0;  // Avoid division by zero
+        return dotProduct / (magnitudeA * magnitudeB);
+    }
 }
 
 module.exports = new KeywordAssignmentService();

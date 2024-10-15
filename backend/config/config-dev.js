@@ -9,7 +9,6 @@ const config = {
     baseUrl: "https://hn.algolia.com/api/v1",
   },
   reddit: {
-    // Add configurations for Reddit or other services here
     hitsPerPage: 25,               // Number of posts to fetch in one request
     fetchInterval: '*/5 * * * *',   // Cron job interval for fetching new posts (every 5 minutes)
     commentRecheckInterval: 6,      // Time interval (in hours) to recheck posts for new comments
@@ -21,9 +20,14 @@ const config = {
     maxDepth: 10,
     delayForKeyword: 12 * 60 * 60 * 1000, // 12 hours
     keywordsPerBatch: 10,
-    baseUrl: "https://www.reddit.com/search.json",
-    
-  },
+    baseUrl: "https://oauth.reddit.com/search", // Changed base URL for OAuth
+    userAgent: "Aurelia Notifier/v1.0",        // The user agent for Reddit API requests
+    authUrl: "https://www.reddit.com/api/v1/access_token",
+    clientId: "_VSUx_mDd3P7Q2yc7A1uOg",           // Client ID for OAuth (replace with actual value)
+    clientSecret: "uVSYgAQYg9Auk2pENO4UCVjElYV51w",   // Client Secret for OAuth (replace with actual value)
+    username: "aureliatech",     // Reddit account username (optional if script-based)
+    password: "Mayurpatil103^"     // Reddit account password (optional if script-based)
+  },  
   assignmentService: {
     cronSchedule: '*/5 * * * *', // Cron job every 5 minutes
     batchSize: 1000 // Max stories/comments to process in one iteration
@@ -48,10 +52,12 @@ const config = {
     apiUrl: "http://localhost:3000",
     controlPanelUrl: "http://localhost:4200",
     landingPageUrl: "http://localhost:8080",
+    sentenceTransformerUrl: "http://127.0.0.1:4000/embed",
 
   },
   system:{
-    db: "mongodb://root:10gicwaves@4.240.81.251:27017/monitoring?authSource=admin",
+//    db: "mongodb://root:10gicwaves@4.240.81.251:27017/monitoring?authSource=admin",
+    db: "mongodb://localhost:27017/monitoring?authSource=admin",
     port:3000
   }
 };

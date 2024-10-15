@@ -49,6 +49,11 @@ const CommentSchema = new mongoose.Schema({
     required: false,
     default: ''
   },
+   // New vector field for storing the vector representation of the comment
+   vector: {
+      type: [Number],  // This will be an array of numbers representing the vector
+      required: false,
+  },
   matchedKeywords: [{
       type: String       
   }]

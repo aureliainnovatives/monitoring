@@ -40,14 +40,20 @@ const StorySchema = new mongoose.Schema({
         type: Number,  // Optional sentiment score
         default: 0,
     },
+     // New vector field for storing the vector representation of the post
+     vector: {
+        type: [Number],  // This will be an array of numbers representing the vector
+        required: false,
+    },
     createdAt: {
         type: Date,
         default: Date.now,
     },
      
-  matchedKeywords: [{
-      type: String       
-  }]
+    matchedKeywords: [{
+        keyword: { type: String },  // The matched keyword
+        score: { type: Number }  // The relevance score of the keyword
+    }]
 });
 
 module.exports = mongoose.model('Story', StorySchema);
