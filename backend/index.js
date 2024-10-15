@@ -33,10 +33,12 @@ app.use(cors({
 
 app.use(express.json());
 
+console.log("****** DB Connection --> ", config.system.db);
+
 // Connect to MongoDB
 mongoose.connect(config.system.db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+//  useNewUrlParser: true,
+//  useUnifiedTopology: true,
   // useFindAndModify: false, // Removed as it's no longer supported
 })
 .then(() => console.log('MongoDB connected'))

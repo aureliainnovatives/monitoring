@@ -7,10 +7,13 @@ const keywordAssignmentService = require('./services/KeywordAssignmentService');
 const EmailService = require('./services/emailService');  // Import the refactored EmailService
 const emailService = new EmailService();  // Instantiate the service
  
+
+console.log("****** DB Connection --> ", config.system.db);
+
 // Connect to MongoDB
 mongoose.connect(config.system.db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  //useNewUrlParser: true,
+  //useUnifiedTopology: true,
 })
   .then(() => console.log('MongoDB connected for crawler'))
   .catch(err => console.log('MongoDB connection error:', err.message));
