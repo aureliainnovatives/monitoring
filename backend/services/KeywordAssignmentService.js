@@ -16,7 +16,7 @@ class KeywordAssignmentService {
 
         for (let story of unassignedStories) {
             let matchedKeywords = [];
-            console.log(`Post vector length for story "${story.title}": ${story.vector.length}`);
+//            console.log(`Post vector length for story "${story.title}": ${story.vector.length}`);
 
             for (let keyword of keywords) {
                 if (keyword.expressionType === 'keyword') {
