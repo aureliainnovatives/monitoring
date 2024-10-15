@@ -31,6 +31,14 @@ module.exports = {
         name: 'sentence-transformer',
         script: 'python3',  // Python binary
         args: './sentence_transformer_service.py',  // Path to your Python file
+      },
+      {
+        name: 'sentence-transformer',
+        script: '/sites/noti5.us/monitoring/pycode/venv/bin/python',  // Path to Python in virtual environment
+        args: '../pycode/sentence_transformer_service.py',  // Path to your Python file
+        log_file: "./logs/sentence-transformer.log",
+        error_file: "./logs/sentence-transformer-error.log",
+        log_date_format: "YYYY-MM-DD HH:mm:ss",
       }
     ]
   };
