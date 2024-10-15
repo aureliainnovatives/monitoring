@@ -33,7 +33,6 @@ app.use(cors({
 
 app.use(express.json());
 
-console.log("****** DB Connection --> ", config.system.db);
 
 // Connect to MongoDB
 mongoose.connect(config.system.db, {
@@ -86,3 +85,6 @@ const PORT = config.system.port || 3000; // Ensure you're using port 3000 as per
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+console.log("****** DB Connection --> ", config.system.db, " PORT", PORT);

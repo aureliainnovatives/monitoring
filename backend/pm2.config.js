@@ -16,6 +16,7 @@ module.exports = {
       },
       {
         name: "crawler",
+        watch: true, 
         script: "crawler.js",
         log_file: "./logs/crawler.log",
         error_file: "./logs/crawler-error.log",
@@ -30,6 +31,7 @@ module.exports = {
        
       {
         name: 'sentence-transformer',
+        watch: true, 
         script: '/sites/noti5.us/monitoring/pycode/venv/bin/python',  // Path to Python in virtual environment
         args: '../pycode/sentence_transformer_service.py',  // Path to your Python file
         log_file: "./logs/sentence-transformer.log",
