@@ -86,5 +86,4 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-
-console.log("****** DB Connection --> ", config.system.db, " PORT", PORT);
+ 
