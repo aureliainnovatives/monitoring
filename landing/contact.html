@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Noti5</title>
+  <title>Contact Us - Noti5</title>
   <style>
    .success-message {
   font-size: 1.0rem;
@@ -231,98 +231,38 @@
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-</head>
+ 
+ </head>
 <body>
   <div class="nav">
     <div class="logo">
       <h2>Noti5</h2>
     </div>
     <div class="links">
-      <a href="https://controlpanel.noti5.us">Login</a>
+      <a href="{{CONTROL_PANEL_URL}}">Login</a>
     </div>
   </div>
 
   <div class="container">
     <div class="main-content">
-      <h1>Track Conversations that Matter to You</h1>
+      <h1>Contact Us</h1>
       <p>
-        Get daily updates when your keywords appear on 
-        <a href="https://news.ycombinator.com/" target="_blank" style="text-decoration: underline; color: black;">Hacker News</a> 
-        and 
-        <a href="https://www.reddit.com/" target="_blank" style="text-decoration: underline; color: black;">Reddit</a>.
+        Noti5 is currently in BETA, and we're actively developing and improving our service. <br><br> We welcome any questions, suggestions, or feedback you may have.
+      </p><br><br>
+      <p>
+        Feel free to reach out to us at: <a href="mailto:mayur.patil@aurelia.tech">mayur.patil@aurelia.tech</a>
       </p>
-      
-      <div class="input-container" id="inputContainer">
-        <input type="email" id="email" placeholder="Where should we send the updates?" required />
-        <button type="submit" id="submitBtn">→</button>
-      </div>
-      <div id="message" class="success-message"></div>
+      <p>
+        You can also connect with me on <a href="https://linktr.ee/mayur.patil" target="_blank">Linktree</a> for more information and updates.
+      </p>
     </div>
   </div>
 
-    <!-- Footer Section -->
-    <div class="footer">
-      <ul>
-        <li><a href="contact.html">Contact</a></li>
-        
-      </ul>
-    </div>
-
-    <script>
-  document.getElementById('submitBtn').addEventListener('click', handleFormSubmission);
-
-// Handle Enter key press on the email input field
-document.getElementById('email').addEventListener('keydown', function (event) {
-  if (event.key === 'Enter') {
-    event.preventDefault();  // Prevent the default behavior (form submission)
-    handleFormSubmission();  // Call the same function as the button click
-  }
-});
-
-// Function to handle form submission
-function handleFormSubmission() {
-  const email = document.getElementById('email').value;
-  const messageElement = document.getElementById('message');
-
-  if (!email) {
-    // If no email is provided
-    messageElement.textContent = 'Please enter a valid email address.';
-    messageElement.style.display = 'block';
-    messageElement.classList.remove('success-message');
-    messageElement.classList.add('error-message');
-    return;
-  }
-
-  fetch('https://api.noti5.us/api/auth/request-magic-link', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ email })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data && data.message === 'Magic link sent to your email') {
-      messageElement.classList.remove('error-message');
-      messageElement.textContent = 'Check your email for the magic link.';
-      messageElement.style.display = 'block';
-      messageElement.classList.add('success-message');
-    } else {
-      messageElement.classList.remove('success-message');
-      messageElement.textContent = data.message || 'Something went wrong. Please try again.';
-      messageElement.style.display = 'block';
-      messageElement.classList.add('error-message');
-    }
-  })
-  .catch(error => {
-    messageElement.classList.remove('success-message');
-    messageElement.textContent = 'An error occurred. Please try again.';
-    messageElement.style.display = 'block';
-    messageElement.classList.add('error-message');
-  });
-}
-
-
-    </script>
+  <div class="footer">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+     
+    </ul>
+  </div>
 </body>
 </html>
