@@ -13,20 +13,20 @@ services:
     ports:
       - "27017:27017"
 
-  api:
-    build: ./backend
-    container_name: nodejs_api
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      - MONGO_URL=mongodb://root:10gicwaves@mongodb:27017/monitoring?authSource=admin
-      - BREVO_API_KEY=${BREVO_API_KEY}
-    volumes:
-      - ./backend:/usr/src/app
-    #  - ./logs:/usr/src/app/logs
-    depends_on:
-      - mongodb
+  # api:
+  #   build: ./backend
+  #   container_name: nodejs_api
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - MONGO_URL=mongodb://root:10gicwaves@mongodb:27017/monitoring?authSource=admin
+  #     - BREVO_API_KEY=${BREVO_API_KEY}
+  #   volumes:
+  #     - ./backend:/usr/src/app
+  #   #  - ./logs:/usr/src/app/logs
+  #   depends_on:
+  #     - mongodb
 
   landing:
     image: nginx:alpine
