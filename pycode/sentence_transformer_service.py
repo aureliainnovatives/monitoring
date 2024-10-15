@@ -25,4 +25,4 @@ def embed_sentence():
     return jsonify({'embedding': embedding})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=4000)
+    app.run(host='0.0.0.0', port=3002)

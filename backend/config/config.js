@@ -52,7 +52,7 @@ const config = {
       apiUrl: "https://api.noti5.us",
       controlPanelUrl: "https://controlpanel.noti5.us",
       landingPageUrl: "https://noti5.us",
-      sentenceTransformerUrl: "http://127.0.0.1:4000/embed",
+      sentenceTransformerUrl: "http://127.0.0.1:3002/embed",
     },
     system:{
       db: "mongodb://root:10gicwaves@localhost:27017/monitoring?authSource=admin",

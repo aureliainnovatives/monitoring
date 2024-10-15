@@ -52,7 +52,7 @@ const config = {
     apiUrl: "http://localhost:3000",
     controlPanelUrl: "http://localhost:4200",
     landingPageUrl: "http://localhost:8080",
-    sentenceTransformerUrl: "http://127.0.0.1:4000/embed",
+    sentenceTransformerUrl: "http://127.0.0.1:3002/embed",
 
   },
   system:{
