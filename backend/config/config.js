@@ -35,7 +35,7 @@ const config = {
     email: {
         apiKey: "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",  // Replace with your SendInBlue API key
         senderEmail: "mayur.patil@aurelia.tech",
-        senderName: "Account Verification",
+        senderName: "Mayur from Noti5",
         
     },
     jwt: {
