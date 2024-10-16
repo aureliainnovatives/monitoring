@@ -18,6 +18,12 @@ const keywordAssignmentService = require('./services/KeywordAssignmentService');
 
 require('dotenv').config();
 
+// Serve static files from the 'assets' directory
+app.use(express.static('assets'));
+
+// If you want to specify a virtual path prefix for your static directory, you can do:
+// app.use('/static', express.static('assets'));
+
 
 // Middleware
 app.use(morgan('dev')); // Logging
