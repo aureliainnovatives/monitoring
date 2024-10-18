@@ -56,8 +56,8 @@ const config = {
 
   },
   system:{
-//    db: "mongodb://root:10gicwaves@4.240.81.251:27017/monitoring?authSource=admin",
-    db: "mongodb://localhost:27017/monitoring?authSource=admin",
+    db: "mongodb://root:10gicwaves@4.240.81.251:27017/monitoring?authSource=admin",
+//    db: "mongodb://localhost:27017/monitoring?authSource=admin",
     port:3000
   }
 };

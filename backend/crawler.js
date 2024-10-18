@@ -98,7 +98,7 @@ cron.schedule(config.assignmentService.cronSchedule, async () => {
 });
 
 //   keywordAssignmentService.assignKeywordsToStories(),
-//   console.log('Keyword assignment job completed.');
+//console.log('Keyword assignment job completed.');
  
 
 // Cron job for sending user notifications at 10 AM daily

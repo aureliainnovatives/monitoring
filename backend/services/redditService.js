@@ -1,4 +1,4 @@
-const BaseService = require('./baseService');
+wconst BaseService = require('./baseService');
 const config = require('../config/configLoader');
 const axios = require('axios');
 const Keyword = require('../models/Keyword');

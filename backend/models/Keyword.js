@@ -4,7 +4,7 @@ const KeywordSchema = new mongoose.Schema({
   keyword: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
     trim: true,
   },
   sources: [{

@@ -12,7 +12,7 @@ class KeywordAssignmentService {
     // Fetch unassigned stories and assign keywords
     async assignKeywordsToStories() {
         const keywords = await Keyword.find();
-        const unassignedStories = await Story.find({ matchedKeywords: { $size: 0 } }).limit(this.batchSize);
+        const unassignedStories = await Story.find({ matchedKeywords: { $size: 0 } }).sort({ createdAt: -1 }).limit(this.batchSize);
 
         for (let story of unassignedStories) {
             let matchedKeywords = [];
