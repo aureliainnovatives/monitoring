@@ -299,6 +299,26 @@
       </div>
       <div id="message" class="success-message"></div>
     </div>
+    <script>
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+      document.getElementById('submitBtn').addEventListener('click', function(event) {
+        event.preventDefault();
+        handleFormSubmission();
+      });
+
+      document.getElementById('email').addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleFormSubmission();
+        }
+      });
+
+     
+    </script>
   </div>
 
     <!-- Footer Section -->
@@ -324,8 +344,9 @@ document.getElementById('email').addEventListener('keydown', function (event) {
 function handleFormSubmission() {
   const email = document.getElementById('email').value;
   const messageElement = document.getElementById('message');
-
-  if (!email) {
+  console.log(email);
+  console.log(validateEmail(email));
+  if (!email || !validateEmail(email)) {
     // If no email is provided
     messageElement.textContent = 'Please enter a valid email address.';
     messageElement.style.display = 'block';
@@ -333,34 +354,37 @@ function handleFormSubmission() {
     messageElement.classList.add('error-message');
     return;
   }
+  else{
 
-  fetch('https://api.noti5.us/api/auth/request-magic-link', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ email })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data && data.message === 'Magic link sent to your email') {
-      messageElement.classList.remove('error-message');
-      messageElement.textContent = 'Check your email for the magic link.';
-      messageElement.style.display = 'block';
-      messageElement.classList.add('success-message');
-    } else {
+    fetch('https://api.noti5.us/api/auth/request-magic-link', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.message === 'Magic link sent to your email') {
+        messageElement.classList.remove('error-message');
+        messageElement.textContent = 'Check your email for the magic link.';
+        messageElement.style.display = 'block';
+        messageElement.classList.add('success-message');
+      } else {
+        messageElement.classList.remove('success-message');
+        messageElement.textContent = data.message || 'Something went wrong. Please try again.';
+        messageElement.style.display = 'block';
+        messageElement.classList.add('error-message');
+      }
+    })
+    .catch(error => {
       messageElement.classList.remove('success-message');
-      messageElement.textContent = data.message || 'Something went wrong. Please try again.';
+      messageElement.textContent = 'An error occurred. Please try again.';
       messageElement.style.display = 'block';
       messageElement.classList.add('error-message');
-    }
-  })
-  .catch(error => {
-    messageElement.classList.remove('success-message');
-    messageElement.textContent = 'An error occurred. Please try again.';
-    messageElement.style.display = 'block';
-    messageElement.classList.add('error-message');
-  });
+    });
+  }
+
 }
 
 
